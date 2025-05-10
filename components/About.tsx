@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import VisionMissionApproachSection from "./ApproachSections";
 
 const AboutSection = () => {
   const sectionVariants = {
@@ -36,9 +37,9 @@ const AboutSection = () => {
       whileInView="visible"
       viewport={{ once: true }} // More concise viewport setting
       variants={sectionVariants}
-      className="py-16 bg-white"
+      className="py-16 bg-gradient-to-br from-white to-gray-50 opacity-90"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <div className="text-center mb-12">
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-green-600 mb-4 relative inline-block">
             <span className="relative z-10">About Us</span>
@@ -101,6 +102,7 @@ const AboutSection = () => {
             </div>
           </motion.div>
         </div>
+        <VisionMissionApproachSection />
       </div>
     </motion.section>
   );

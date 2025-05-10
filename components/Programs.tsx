@@ -1,14 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  // BookOpen,
-  Users,
-  Heart,
-  School,
-  AlertTriangle,
-  ArrowRight,
-} from "lucide-react";
-// import Image from "next/image";
+import { Users, Heart, School, AlertTriangle, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 // Fixed image URLs
 const featuredPrograms = [
@@ -17,36 +10,44 @@ const featuredPrograms = [
     title: "Child Education Initiatives",
     description:
       "Our education programs provide primary education, vocational training, and support to vulnerable children across multiple communities.",
-    icon: <School className="w-10 h-10 text-blue-600" />,
+    icon: <School className="w-10 h-10 text-blue-500" />,
     link: "/programs#education",
-    image: "impact/childeducation.JPG", // Direct Download URL
+    image: "/impact/childeducation.JPG",
+    color: "bg-blue-300", // Gradient
+    titleColor: "text-blue-700",
   },
   {
     id: 2,
     title: "Healthcare & Medical Relief",
     description:
       "We operate health awareness camps and community-based wellness centers with free checkups and medicine distribution.",
-    icon: <Heart className="w-10 h-10 text-red-600" />,
+    icon: <Heart className="w-10 h-10 text-red-500" />,
     link: "/programs#health",
-    image: "impact/healthcare.jpg", // Direct Download URL
+    image: "/impact/healthcare.jpg",
+    color: "bg-red-200",
+    titleColor: "text-red-700",
   },
   {
     id: 3,
     title: "Community Support Programs",
     description:
       "Working to transform marginalized communities by building confidence and promoting positive leadership development.",
-    icon: <Users className="w-10 h-10 text-yellow-600" />,
+    icon: <Users className="w-10 h-10 text-yellow-500" />,
     link: "/programs#community",
-    image: "impact/communitu.JPG", // Direct Download URL
+    image: "/impact/communitu.JPG",
+    // color: "bg-yellow-200",
+    titleColor: "text-yellow-700",
   },
   {
     id: 4,
     title: "Emergency Relief Services",
     description:
       "Providing immediate and long-term assistance to victims of natural disasters with food, shelter, and rebuilding support.",
-    icon: <AlertTriangle className="w-10 h-10 text-orange-600" />,
+    icon: <AlertTriangle className="w-10 h-10 text-orange-500" />,
     link: "/programs#emergency",
-    image: "impact/emergency.JPG", // Direct Download URL
+    image: "/impact/emergency.JPG",
+    color: "bg-orange-50",
+    titleColor: "text-orange-700",
   },
 ];
 
@@ -56,18 +57,18 @@ const ProgramsSection = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
+        staggerChildren: 0.2,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.5,
         ease: "easeInOut",
       },
     },
@@ -79,7 +80,7 @@ const ProgramsSection = () => {
         <div className="text-center mb-12">
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-green-600 mb-4 relative inline-block">
             <span className="relative z-10">Our Impact Areas</span>
-            <div className="absolute -bottom-2 left-1/3 right-1/3 h-1.5 bg-gradient-to-r from-green-500 to-teal-500 rounded-full -z-10"></div>
+            <div className="absolute -bottom-2 left-1/3 right-1/3 h-1.5 bg-gradient-to-r from-green-500 to-teal-500 rounded-full -z-10" />
           </h2>
           <p className="text-gray-700 mt-4 max-w-3xl mx-auto text-lg leading-relaxed font-light">
             Discover how we are making a difference through strategic programs
@@ -89,36 +90,50 @@ const ProgramsSection = () => {
         </div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true }}
         >
           {featuredPrograms.map((program) => (
             <motion.div
               key={program.id}
               variants={itemVariants}
-              className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-[1.01] flex flex-col"
+              className={`
+                bg-white rounded-xl shadow-lg
+                border border-gray-100
+                overflow-hidden
+                transition-all duration-300
+                 hover:scale-[1.02]
+                flex flex-col
+                ${program.color} // Apply background color
+                
+              `}
             >
               <div className="relative">
-                <img
-                  src={program.image} // Using the modified URL here
+                <Image
+                  src={program.image}
                   alt={program.title}
-                  className="w-full h-64  object-cover rounded-t-xl"
+                  width={220} // Set width to 0 for intrinsic width
+                  height={256} // Fixed height, adjust as needed (original: 64 * 4 = 256)
+                  className="w-full object-cover rounded-t-xl"
+                  style={{ height: "256px" }}
                 />
-                <div className="absolute inset-0 bg-black/20 rounded-t-xl"></div>
+                <div className="absolute inset-0 bg-black/10 rounded-t-xl" />
                 <div className="absolute top-4 left-4">
-                  <div className="bg-white rounded-full p-3 shadow-md">
+                  <div className="bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md">
                     {program.icon}
                   </div>
                 </div>
               </div>
               <div className="p-6 flex-grow flex flex-col items-start">
-                <h3 className="font-serif text-xl font-semibold text-gray-900 mb-3">
+                <h3
+                  className={`font-serif text-xl font-semibold  mb-3 ${program.titleColor}`}
+                >
                   {program.title}
                 </h3>
-                <p className="text-gray-600 mb-4 text-sm leading-relaxed flex-grow">
+                <p className="text-gray-700 mb-4 text-sm leading-relaxed flex-grow">
                   {program.description}
                 </p>
                 <a
